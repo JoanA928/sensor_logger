@@ -13,16 +13,21 @@
  * interface to allow the user to measure the firmware’s performance.
  *
  **********************************************************************/
+
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
 #include "verification.h"
+#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 // TODO: Figure out if this lives in .bss or .data.
 char buffer[LOG_BUFFER_SIZE];
+pthread_mutex_t lock;
 
 int main(int argc, char *argv[]) {
+
+  lock = PTHREAD_MUTEX_INITIALIZER;
 
   /*
    * The user needs a way to interface with the firmware, in order to control

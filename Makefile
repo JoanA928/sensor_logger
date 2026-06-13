@@ -8,10 +8,10 @@ CFLAGS = -Wall -Wextra -Wpedantic -std=c23
 TARGET = main
 
 # Source files
-SRC = main.c verification.c
+SRC = main.c verification.c generate_data.c
 
 # Header files
-HEAD = verification.h
+HEAD = verification.h generate_data.h
 
 # Default rule
 all: $(TARGET)
