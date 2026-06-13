@@ -8,13 +8,16 @@ CFLAGS = -Wall -Wextra -Wpedantic -std=c23
 TARGET = main
 
 # Source files
-SRC = main.c
+SRC = main.c verification.c
+
+# Header files
+HEAD = verification.h
 
 # Default rule
 all: $(TARGET)
 
 # Build the executable
-$(TARGET): $(SRC)
+$(TARGET): $(SRC) $(HEAD)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
 
 # Remove generated files

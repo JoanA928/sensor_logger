@@ -14,8 +14,12 @@
 #ifndef VERIFICATION_H
 #define VERIFICATION_H
 
-int parseCommands(char *buffer); // Goes command by command verifying it.
-int isCommand(char *buffer, int startPos, int size); // Determines what is & is
-                                                     // not a command.
+#define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
+
+extern char buffer[LOG_BUFFER_SIZE];
+
+int parseCommands();              // Goes command by command verifying it.
+int isCommand(const char *token); // Determines what is & is
+                                  // not a command.
 
 #endif // !VERIFICATION_H

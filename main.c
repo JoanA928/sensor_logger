@@ -14,14 +14,13 @@
  *
  **********************************************************************/
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
+#include "verification.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LOG_BUFFER_SIZE 256
-
 // TODO: Figure out if this lives in .bss or .data.
-static char buffer[LOG_BUFFER_SIZE * sizeof(int)];
+char buffer[LOG_BUFFER_SIZE];
 
 int main(int argc, char *argv[]) {
 
@@ -39,6 +38,10 @@ int main(int argc, char *argv[]) {
    */
   if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
     printf("Error: something went wrong\n");
+    return EXIT_FAILURE;
+  }
+  if (parseCommands() != 0) {
+    printf("Error: failed to parse command");
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;

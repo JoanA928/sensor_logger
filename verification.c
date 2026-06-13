@@ -12,6 +12,23 @@
  **********************************************************************/
 
 #include "verification.h"
+#include <stdio.h>
+#include <string.h>
 
-int parseCommands(char *buffer) {}
-int isCommand(char *buffer, int startPos, int size) {}
+int parseCommands() {
+  printf("I made it here\n");
+  const char delimiter = ' ';
+  /*
+   *  Breaking up the verification process into pieces makes implmentation
+   *  easier.
+   */
+  char *token;
+  token = strtok(buffer, &delimiter);
+  if (!token) {
+    printf("Error: failed to read token\n");
+    return 1;
+  }
+  printf("We got your input: %s\n", token);
+  return 0;
+}
+int isCommand(const char *token) { return 0; }
