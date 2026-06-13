@@ -13,12 +13,33 @@
  * interface to allow the user to measure the firmware’s performance.
  *
  **********************************************************************/
-
+// TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LOG_BUFFER_SIZE 256
+
+// TODO: Figure out if this lives in .bss or .data.
+static char buffer[LOG_BUFFER_SIZE * sizeof(int)];
+
 int main(int argc, char *argv[]) {
-  printf("Hello world\n");
+
+  /*
+   * The user needs a way to interface with the firmware, in order to control
+   * it.
+   */
+  // TODO: Check 'argv' for parameters passed to the program i.e. --benchmark
+  printf("Sensor Data Logger\n"
+         "waiting for a command...\n"
+         "enter 'help' to see a list of available commands\n");
+  /*
+   * The user can enter as many commands as they want at once, however, to
+   * prevent abuse we have to ignore some input to prevent crashes.
+   */
+  if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
+    printf("Error: something went wrong\n");
+    return EXIT_FAILURE;
+  }
   return EXIT_SUCCESS;
 }
