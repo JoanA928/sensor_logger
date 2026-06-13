@@ -16,7 +16,7 @@
 #include <string.h>
 
 int parseCommands() {
-  printf("I made it here\n");
+
   const char delimiter = ' ';
   /*
    *  Breaking up the verification process into pieces makes implmentation
@@ -28,7 +28,28 @@ int parseCommands() {
     printf("Error: failed to read token\n");
     return 1;
   }
-  printf("We got your input: %s\n", token);
+
+  while (token) {
+    if (isCommand(token) != 0) {
+      printf("Error: '%s' is not a command, type help to see a list of "
+             "available commands\n",
+             token);
+      return 1;
+    }
+    token = strtok(NULL, &delimiter);
+  }
   return 0;
 }
-int isCommand(const char *token) { return 0; }
+int isCommand(const char *token) {
+  printf("I MADE IT HERE\n");
+  char *commands[] = {"start\n", "stop\n", "read\n", "dump\n",
+                      "stats\n", "mem\n",  "help\n"};
+  int size = 7; // FIX: don't hardcode values!
+
+  for (int index = 0; index < size; index++) {
+    if (strcmp(token, commands[index]) == 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
