@@ -2,8 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Wpedantic -std=c23
-
+CFLAGS = -Wall -Wextra -Wpedantic -pthread
 # Output executable name
 TARGET = main
 

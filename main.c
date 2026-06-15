@@ -15,6 +15,7 @@
  **********************************************************************/
 
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
+#include "generate_data.h"
 #include "verification.h"
 #include <pthread.h>
 #include <stdbool.h>
@@ -23,12 +24,11 @@
 
 // TODO: Figure out if this lives in .bss or .data.
 char buffer[LOG_BUFFER_SIZE];
-pthread_mutex_t lock;
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+int sentinelValue;
 
 int main(int argc, char *argv[]) {
-
-  lock = PTHREAD_MUTEX_INITIALIZER;
-
+  printf("argc: %d / argv: %s ", argc, argv[0]);
   /*
    * The user needs a way to interface with the firmware, in order to control
    * it.
@@ -49,5 +49,6 @@ int main(int argc, char *argv[]) {
     printf("Error: failed to parse command");
     return EXIT_FAILURE;
   }
+
   return EXIT_SUCCESS;
 }

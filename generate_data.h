@@ -15,9 +15,22 @@
 #define GENERATE_DATA_H
 
 #include <pthread.h>
+#include <stdint.h>
+#include <time.h>
+
+#define STOP_THREAD 1
+#define ONE_HUNDRED_MS_NS 100000000L
+
+typedef struct {
+  int value;   // Value read from the sensor.
+  time_t time; // Time when sensor value was read.
+} packet;
 
 extern pthread_mutex_t lock;
+extern int sentinelValue;
+extern packet data;
 
-void *genereteData();
+void *genereteData(void *arg);
+double randomDouble(double min, double max);
 
 #endif // !GENERATE_DATA_H
