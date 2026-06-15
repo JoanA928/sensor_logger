@@ -13,11 +13,16 @@
 
 #include "generate_data.h"
 #include <pthread.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-void *genereteData(void *arg) {
+packet data;
 
+void *genereteData(void *arg) {
+  if (arg != NULL) {
+    arg = NULL;
+  }
   /**
    * We need to generate data while our firmware is running to simulate an
    * envoriment where the sensors are constantly collecting data, this way our
@@ -26,7 +31,6 @@ void *genereteData(void *arg) {
   if (sentinelValue != STOP_THREAD) {
     srand((unsigned int)time(NULL));
     arg = NULL;
-    packet data;
     struct timespec delay = {.tv_sec = 0, .tv_nsec = ONE_HUNDRED_MS_NS};
 
     while (1) {
@@ -40,6 +44,7 @@ void *genereteData(void *arg) {
       nanosleep(&delay, NULL);
     }
   }
+  printf("Stopping thread, sentinelValue: %d\n", sentinelValue);
   return NULL;
 }
 

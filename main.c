@@ -21,6 +21,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 
 // TODO: Figure out if this lives in .bss or .data.
 char buffer[LOG_BUFFER_SIZE];
@@ -50,5 +52,19 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  /**
+   * In order to simulate sensors values we're going to generate them in a
+   * seperate thread so that firmware has a source for where for logging.
+   */
+  pthread_t sensorThread;
+  pthread_create(&sensorThread, NULL, genereteData, NULL);
+  time_t start = time(NULL);
+
+  while (time(NULL) - start < 10) {
+    printf("sensor value: %d\n", data.value);
+    usleep(ONE_HUNDRED_MS_US);
+  }
+  sentinelValue = STOP_THREAD;
+  printf("good bye\n");
   return EXIT_SUCCESS;
 }

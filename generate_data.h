@@ -20,6 +20,7 @@
 
 #define STOP_THREAD 1
 #define ONE_HUNDRED_MS_NS 100000000L
+#define ONE_HUNDRED_MS_US 100000
 
 typedef struct {
   int value;   // Value read from the sensor.

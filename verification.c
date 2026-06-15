@@ -41,7 +41,7 @@ int parseCommands() {
   return 0;
 }
 int isCommand(const char *token) {
-  printf("I MADE IT HERE\n");
+  // printf("I MADE IT HERE\n");
   char *commands[] = {"start\n", "stop\n", "read\n", "dump\n",
                       "stats\n", "mem\n",  "help\n"};
   int size = 7; // FIX: don't hardcode values!
