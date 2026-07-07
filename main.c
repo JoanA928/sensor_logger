@@ -30,28 +30,28 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
 
 int main(int argc, char *argv[]) {
-  printf("argc: %d / argv: %s ", argc, argv[0]);
+  printf("argc: %d / argv: %s\n", argc, argv[0]);
   /*
    * The user needs a way to interface with the firmware, in order to control
    * it.
    */
   // TODO: Check 'argv' for parameters passed to the program i.e. --benchmark
-  printf("Sensor Data Logger\n"
-         "waiting for a command...\n"
-         "enter 'help' to see a list of available commands\n");
-  /*
-   * The user can enter as many commands as they want at once, however, to
-   * prevent abuse we have to ignore some input to prevent crashes.
-   */
-  if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
-    printf("Error: something went wrong\n");
-    return EXIT_FAILURE;
+  printf("Sensor Data Logger\n"); // TODO: Format program name to have a nice
+                                  // presentation
+  while (1) {
+    printf("Enter 'help' to see a list of available commands\n");
+    /*
+     * The user can enter as many commands as they want at once, however, to
+     * prevent abuse we have to ignore some input to prevent crashes.
+     */
+    if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
+      printf("[Error] something went wrong\n");
+    }
+    if (parseCommands() == 0) {
+      printf("[INFO] command dectected\n");
+      break;
+    }
   }
-  if (parseCommands() != 0) {
-    printf("Error: failed to parse command");
-    return EXIT_FAILURE;
-  }
-
   /**
    * In order to simulate sensors values we're going to generate them in a
    * seperate thread so that firmware has a source for where for logging.

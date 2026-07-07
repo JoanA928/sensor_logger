@@ -31,9 +31,7 @@ int parseCommands() {
 
   while (token) {
     if (isCommand(token) != 0) {
-      printf("Error: '%s' is not a command, type help to see a list of "
-             "available commands\n",
-             token);
+      printf("Error: '%s' is not a command\n", token);
       return 1;
     }
     token = strtok(NULL, &delimiter);
