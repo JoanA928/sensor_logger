@@ -17,31 +17,31 @@
 
 int parseCommands() {
 
-  const char delimiter = ' ';
+  const char *delimiter = " \n";
   /*
    *  Breaking up the verification process into pieces makes implmentation
    *  easier.
    */
   char *token;
-  token = strtok(buffer, &delimiter);
+  token = strtok(buffer, delimiter);
   if (!token) {
-    printf("Error: failed to read token\n");
+    printf("[Error] parsing command\n");
     return 1;
   }
 
   while (token) {
     if (isCommand(token) != 0) {
-      printf("Error: '%s' is not a command\n", token);
+      printf("[Error] '%s' is not a command\n", token);
       return 1;
     }
-    token = strtok(NULL, &delimiter);
+    token = strtok(NULL, delimiter);
   }
   return 0;
 }
 int isCommand(const char *token) {
   // printf("I MADE IT HERE\n");
-  char *commands[] = {"start\n", "stop\n", "read\n", "dump\n",
-                      "stats\n", "mem\n",  "help\n"};
+  const char *commands[] = {"start", "stop", "read", "dump",
+                            "stats", "mem",  "help"};
   int size = 7; // FIX: don't hardcode values!
 
   for (int index = 0; index < size; index++) {
