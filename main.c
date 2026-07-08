@@ -16,6 +16,7 @@
 
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
 #include "generate_data.h"
+#include "info_logger_macro.h"
 #include "verification.h"
 #include <pthread.h>
 #include <stdbool.h>
@@ -45,10 +46,10 @@ int main(int argc, char *argv[]) {
      * prevent abuse we have to ignore some input to prevent crashes.
      */
     if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
-      printf("[Error] something went wrong\n");
+      LOG_ERROR("something went wrong");
     }
     if (parseCommands() == 0) {
-      printf("[INFO] command dectected\n");
+      LOG_INFO("command dectected");
       break;
     }
   }

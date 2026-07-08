@@ -12,6 +12,7 @@
  **********************************************************************/
 
 #include "verification.h"
+#include "info_logger_macro.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -25,13 +26,13 @@ int parseCommands() {
   char *token;
   token = strtok(buffer, delimiter);
   if (!token) {
-    printf("[Error] parsing command\n");
+    LOG_ERROR("parsing command");
     return 1;
   }
 
   while (token) {
     if (isCommand(token) != 0) {
-      printf("[Error] '%s' is not a command\n", token);
+      LOG_ERROR("'%s' is not a command", token);
       return 1;
     }
     token = strtok(NULL, delimiter);
