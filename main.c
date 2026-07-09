@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
     usleep(ONE_HUNDRED_MS_US);
   }
   sentinelValue = STOP_THREAD;
-  printf("good bye\n");
+  pthread_join(sensorThread, NULL);
+  LOG_INFO("good bye");
   return EXIT_SUCCESS;
 }

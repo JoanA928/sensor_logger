@@ -12,6 +12,7 @@
  **********************************************************************/
 
 #include "generate_data.h"
+#include "info_logger_macro.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,7 +45,7 @@ void *genereteData(void *arg) {
       nanosleep(&delay, NULL);
     }
   }
-  printf("Stopping thread, sentinelValue: %d\n", sentinelValue);
+  LOG_INFO("Stopping thread, sentinelValue: %d", sentinelValue);
   return NULL;
 }
 
