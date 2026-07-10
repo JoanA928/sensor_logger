@@ -18,6 +18,8 @@
 #include <stdint.h>
 #include <time.h>
 
+// TODO: 'STOP_THREAD' is used in multiple files, it should be moved to a header
+// file that is meant to be shared amongst any file that needs it.
 #define STOP_THREAD 1
 #define ONE_HUNDRED_MS_NS 100000000L
 #define ONE_HUNDRED_MS_US 100000
@@ -27,8 +29,10 @@ typedef struct {
   time_t time; // Time when sensor value was read.
 } packet;
 
-extern pthread_mutex_t lock;
-extern int sentinelValue;
+extern pthread_mutex_t sensorLock;
+extern int sentinelValue; // TODO: 'sentinelValue' is used in multiple files, it
+                          // should be moved to a header file that is meant to
+                          // be shared amongst any file that needs it.
 extern packet data;
 
 void *genereteData(void *arg);

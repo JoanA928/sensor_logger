@@ -35,13 +35,13 @@ void *genereteData(void *arg) {
     struct timespec delay = {.tv_sec = 0, .tv_nsec = ONE_HUNDRED_MS_NS};
 
     while (1) {
-      pthread_mutex_lock(&lock);
+      pthread_mutex_lock(&sensorLock);
       if (sentinelValue == STOP_THREAD) {
-        pthread_mutex_unlock(&lock);
+        pthread_mutex_unlock(&sensorLock);
         break;
       }
       data.value = randomDouble(0.0, 1000.0);
-      pthread_mutex_unlock(&lock);
+      pthread_mutex_unlock(&sensorLock);
       nanosleep(&delay, NULL);
     }
   }

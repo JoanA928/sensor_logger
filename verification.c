@@ -47,6 +47,7 @@ int isCommand(const char *token) {
 
   for (int index = 0; index < size; index++) {
     if (strcmp(token, commands[index]) == 0) {
+      LOG_INFO("command: %s", token);
       return 0;
     }
   }
