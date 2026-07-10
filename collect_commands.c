@@ -37,6 +37,7 @@ void *collectCommands(void *args) {
     if (parseCommands() == 0) {
       pthread_mutex_lock(&commandLock);
       isCommand = true;
+
       pthread_mutex_unlock(&commandLock);
     }
   }

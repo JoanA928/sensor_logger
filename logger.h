@@ -4,20 +4,16 @@
  * Student ID:: 924074746
  * Github-Name:: JoanA928
  * Project:: Firmware - Data Logger
- * File:: collect_commands.h
+ * File:: main.c
  *
- * Description:: // TODO: fill me in
+ * Description:: This file is responible for loggng sensor data to the console.
  *
  **********************************************************************/
 
-#ifndef COLLECT_COMMANDS_H
-#define COLLECT_COMMANDS_H
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <pthread>
+void *logger(void *args);
 
-void *collectCommands(void *args);
-
-extern char *queue;
-extern pthread_mutex_t commandLock;
-extern int isCommand;
-#endif // !COLLECT_COMMANDS_H
+#endif // !Logger

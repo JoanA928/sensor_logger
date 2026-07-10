@@ -32,6 +32,7 @@ pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
 int isCommand;
+char *queue[];
 
 int main(int argc, char *argv[]) {
   LOG_INFO("argc: %d / argv: %s", argc, argv[0]);
@@ -45,14 +46,9 @@ int main(int argc, char *argv[]) {
   pthread_t collectCommandsThread;
   pthread_create(&collect_commands, NULL, collecCommands, NULL);
   pthread_create(&sensorThread, NULL, genereteData, NULL);
-  time_t start = time(NULL);
-
-  while (time(NULL) - start < 10) {
-    printf("sensor value: %d\n", data.value);
-    usleep(ONE_HUNDRED_MS_US);
+  if (sentinelValue == STOP_THREAD) {
+    pthread_join(sensorThread, NULL);
+    LOG_INFO("good bye");
+    return EXIT_SUCCESS;
   }
-  sentinelValue = STOP_THREAD;
-  pthread_join(sensorThread, NULL);
-  LOG_INFO("good bye");
-  return EXIT_SUCCESS;
 }
