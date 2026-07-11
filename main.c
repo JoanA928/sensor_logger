@@ -15,6 +15,7 @@
  **********************************************************************/
 
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
+#include "collect_commands.h"
 #include "generate_data.h"
 #include "info_logger_macro.h"
 #include "verification.h"
@@ -27,45 +28,21 @@
 
 // TODO: Figure out if this lives in .bss or .data.
 char buffer[LOG_BUFFER_SIZE];
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
+int isCommand;
+char *queue[];
 
 int main(int argc, char *argv[]) {
-  printf("argc: %d / argv: %s\n", argc, argv[0]);
-  /*
-   * The user needs a way to interface with the firmware, in order to control
-   * it.
-   */
+  LOG_INFO("argc: %d / argv: %s", argc, argv[0]);
   // TODO: Check 'argv' for parameters passed to the program i.e. --benchmark
   printf("Sensor Data Logger\n"); // TODO: Format program name to have a nice
                                   // presentation
-  while (1) {
-    printf("Enter 'help' to see a list of available commands\n");
-    /*
-     * The user can enter as many commands as they want at once, however, to
-     * prevent abuse we have to ignore some input to prevent crashes.
-     */
-    if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
-      LOG_ERROR("something went wrong");
-    }
-    if (parseCommands() == 0) {
-      LOG_INFO("command dectected");
-      break;
-    }
-  }
   /**
    * In order to simulate sensors values we're going to generate them in a
    * seperate thread so that firmware has a source for where for logging.
    */
-<<<<<<< Updated upstream
-  pthread_t sensorThread;
-  pthread_create(&sensorThread, NULL, genereteData, NULL);
-  time_t start = time(NULL);
-
-  while (time(NULL) - start < 10) {
-    printf("sensor value: %d\n", data.value);
-    usleep(ONE_HUNDRED_MS_US);
-=======
   pthread_t collectCommandsThread;
   pthread_t sensorThread;
   pthread_create(&collect_commands, NULL, collecCommands, NULL);
@@ -81,10 +58,12 @@ int main(int argc, char *argv[]) {
   } else if (!queue) {
     LOG_INFO("Here I would start run commands");
     pthread_mutex_t_unlock(&collect_commands);
->>>>>>> Stashed changes
+    pthread_t collectCommandsThread;
+    pthread_create(&collect_commands, NULL, collecCommands, NULL);
+    pthread_create(&sensorThread, NULL, genereteData, NULL);
+    if (sentinelValue == STOP_THREAD) {
+      pthread_join(sensorThread, NULL);
+      LOG_INFO("good bye");
+      return EXIT_SUCCESS;
+    }
   }
-  sentinelValue = STOP_THREAD;
-  pthread_join(sensorThread, NULL);
-  LOG_INFO("good bye");
-  return EXIT_SUCCESS;
-}

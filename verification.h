@@ -16,6 +16,8 @@
 
 #define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
 
+typedef enum { start, stop, read, dump, stats, mem, help } command;
+
 extern char buffer[LOG_BUFFER_SIZE];
 
 int parseCommands();              // Goes command by command verifying it.
