@@ -22,9 +22,6 @@ packet data;
 dataLock = PTHREAD_MUTEX_INITIALIZER;
 
 void *genereteData(void *arg) {
-  if (arg != NULL) {
-    arg = NULL;
-  }
   /**
    * We need to generate data while our firmware is running to simulate an
    * envoriment where the sensors are constantly collecting data, this way our

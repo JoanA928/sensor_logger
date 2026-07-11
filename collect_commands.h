@@ -20,5 +20,6 @@ void *collectCommands(void *args);
 
 extern char *queue;
 extern pthread_mutex_t commandLock;
+extern pthread_mutex_t sentinelLock;
 extern bool isCommand;
 #endif // !COLLECT_COMMANDS_H

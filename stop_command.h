@@ -14,7 +14,7 @@
 #define STOP_COMMAND_H
 
 extern sentinelValue;
-extern pthread_mutex_t commandLock;
+extern pthread_mutex_t sentinelLock;
 
 void stopCommand(void *args);
 

@@ -28,7 +28,8 @@
 
 // TODO: Figure out if this lives in .bss or .data.
 char buffer[LOG_BUFFER_SIZE];
-pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER; // TODO: can be moved?
+pthread_mutex_t sentinelLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
 bool isCommand;
@@ -47,9 +48,9 @@ int main(int argc, char *argv[]) {
   pthread_t sensorThread;
   pthread_create(&collect_commands, NULL, collecCommands, NULL);
   pthread_create(&sensorThread, NULL, genereteData, NULL);
-  pthread_mutex_lock(&commandLock);
+  pthread_mutex_lock(&sentinelLock);
   if (sentinelValue == STOP_THREAD) {
-    pthread_mutex_t_lock(&commandLock);
+    pthread_mutex_t_lock(&sentinelLock);
     pthread_join(sensorThread, NULL);
     pthread_join(collectCommandsThread, NULL);
     LOG_INFO("good bye");

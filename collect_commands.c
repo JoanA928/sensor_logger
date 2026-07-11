@@ -25,8 +25,13 @@ void *collectCommands(void *args) {
    */
   LOG_INFO("hello I'm supposed to collect commands");
   printf("Enter 'help' to see a list of available commands\n");
-
-  while (sentinelValue != STOP_THREAD) {
+  while (true) {
+    pthread_mutex_lock(&sentinelLock);
+    if (sentinelValue == STOP_THREAD) {
+      pthread_mutex_unlock(&sentinelLock);
+      break;
+    }
+    pthread_mutex_unlock(&sentinelLock);
     /*
      * The user can enter as many commands as they want at once, however, to
      * prevent abuse we have to ignore some input to prevent crashes.

@@ -16,10 +16,10 @@
 
 void stopCommand(void *args) {
   LOG_INFO("Entering 'stop' command thread");
-  pthread_mutex_lock(&commandLock);
+  pthread_mutex_lock(&sentinelLock);
   sentinelValue = STOP_THREAD;
   DEBUG_INFO("Sentinel value: %d", sentinelValue);
-  pthread_mutex_unlock(&commandLock);
+  pthread_mutex_unlock(&sentinelLock);
   LOG_info("Exiting 'stop' command thread");
   return NULL;
 }
