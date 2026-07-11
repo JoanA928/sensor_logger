@@ -31,7 +31,7 @@ char buffer[LOG_BUFFER_SIZE];
 pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
-int isCommand;
+bool isCommand;
 char *queue[];
 
 int main(int argc, char *argv[]) {

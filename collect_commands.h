@@ -14,10 +14,11 @@
 #define COLLECT_COMMANDS_H
 
 #include <pthread>
+#include <stdbool.h>
 
 void *collectCommands(void *args);
 
 extern char *queue;
 extern pthread_mutex_t commandLock;
-extern int isCommand;
+extern bool isCommand;
 #endif // !COLLECT_COMMANDS_H
