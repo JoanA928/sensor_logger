@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
    * In order to simulate sensors values we're going to generate them in a
    * seperate thread so that firmware has a source for where for logging.
    */
+<<<<<<< Updated upstream
   pthread_t sensorThread;
   pthread_create(&sensorThread, NULL, genereteData, NULL);
   time_t start = time(NULL);
@@ -64,6 +65,23 @@ int main(int argc, char *argv[]) {
   while (time(NULL) - start < 10) {
     printf("sensor value: %d\n", data.value);
     usleep(ONE_HUNDRED_MS_US);
+=======
+  pthread_t collectCommandsThread;
+  pthread_t sensorThread;
+  pthread_create(&collect_commands, NULL, collecCommands, NULL);
+  pthread_create(&sensorThread, NULL, genereteData, NULL);
+  pthread_mutex_lock(&commandLock);
+  if (sentinelValue == STOP_THREAD) {
+    pthread_mutex_t_lock(&commandLock);
+    pthread_join(sensorThread, NULL);
+    pthread_join(collectCommandsThread, NULL);
+    LOG_INFO("good bye");
+    return EXIT_SUCCESS;
+    pthread_mutex_t_lock(&collect_commands);
+  } else if (!queue) {
+    LOG_INFO("Here I would start run commands");
+    pthread_mutex_t_unlock(&collect_commands);
+>>>>>>> Stashed changes
   }
   sentinelValue = STOP_THREAD;
   pthread_join(sensorThread, NULL);
