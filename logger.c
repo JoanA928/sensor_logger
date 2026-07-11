@@ -11,14 +11,17 @@
  **********************************************************************/
 
 #include "logger.h"
+#include "info_logger_macro.h"
 
 void logger(void *args) {
 
   time_t start = time(NULL);
   while (time(NULL) - start < 10) {
+    pthread_mutex_lock(&dataLock);
     printf("sensor value: %d\n", data.value);
+    pthread_mutex_unlock(&dataLock);
     usleep(ONE_HUNDRED_MS_US);
   }
-
+  LOG_INFO("Exiting logger thread");
   return NULL;
 }

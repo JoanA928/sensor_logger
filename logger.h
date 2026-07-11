@@ -13,7 +13,12 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include "generate_data.h"
 #include <pthread>
+
+extern packet data;
+extern pthread_mutex_t dataLock;
+
 void *logger(void *args);
 
 #endif // !Logger

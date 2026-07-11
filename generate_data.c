@@ -19,6 +19,7 @@
 #include <time.h>
 
 packet data;
+dataLock = PTHREAD_MUTEX_INITIALIZER;
 
 void *genereteData(void *arg) {
   if (arg != NULL) {
@@ -40,8 +41,10 @@ void *genereteData(void *arg) {
         pthread_mutex_unlock(&sensorLock);
         break;
       }
-      data.value = randomDouble(0.0, 1000.0);
       pthread_mutex_unlock(&sensorLock);
+      pthread_mutex_lock(&dataLock);
+      data.value = randomDouble(0.0, 1000.0);
+      pthread_mutex_unlock(&dataLock);
       nanosleep(&delay, NULL);
     }
   }
