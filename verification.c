@@ -31,7 +31,7 @@ int parseCommands() {
   }
 
   while (token) {
-    if (isCommand(token) != 0) {
+    if (isCommand(token) < 0) {
       LOG_ERROR("'%s' is not a command", token);
       return 1;
     }
@@ -39,18 +39,24 @@ int parseCommands() {
   }
   return 0;
 }
-int isCommand(const char *token) {
-  // printf("I MADE IT HERE\n");
-  const char *commands[] = {"start", "stop", "read", "dump",
-                            "stats", "mem",  "help"};
-  int size = 7; // FIX: don't hardcode values!
 
-  for (int index = 0; index < size; index++) {
-    if (strcmp(token, commands[index]) == 0) {
-      LOG_INFO("command: %s", token);
-      queue[index] = token;
-      return 0;
-    }
+int isCommand(const char *token) {
+
+  if (strcmp(token, "start") == 0) {
+    return start;
+  } else if (strcmp(token, "stop") == 0) {
+    return stop;
+  } else if (strcmp(token, "read") == 0) {
+    return read;
+  } else if (strcmp(token, "dump") == 0) {
+    return dump;
+  } else if (strcmp(token, "stats") == 0) {
+    return stats;
+  } else if (strcmp(token, "mem") == 0) {
+    return mem;
+  } else if (strcmp(token, "help") == 0) {
+    return help;
+  } else {
+    return -1;
   }
-  return 1;
 }
