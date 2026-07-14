@@ -42,7 +42,7 @@ int queue[MAX_QUEUE_SIZE]; // TODO: Figure out if this lives in .bss or .data
 int queueSize;             // TODO: Figure out if this lives in .bss or .data
 
 int main(int argc, char *argv[]) {
-  LOG_INFO("argc: %d / argv: %s", argc, argv[0]);
+  LOG_DEBUG("argc: %d / argv: %s", argc, argv[0]);
   // TODO: Check 'argv' for parameters passed to the program i.e. --benchmark
   printf("Sensor Data Logger\n"); // TODO: Format program name to have a nice
                                   // presentation
@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
         switch (queue[index]) {
         case 1: // TODO: Replace '1' with command enum
           LOG_DEBUG("Start command '1' thread");
+
           break;
         case 2: // TODO: Replace '2' with command enum
           LOG_DEBUG("Start command '2' thread");

@@ -23,11 +23,8 @@ void *collectCommands(void *args) {
    * The user needs a way to interface with the firmware, in order to control
    * it.
    */
-  if (args) {
-    args = NULL;
-  }
-  int commandValue;
-  LOG_INFO("hello I'm supposed to collect commands");
+  (void)args;
+  LOG_DEBUG("collect commands thread started");
   printf("Enter 'help' to see a list of available commands\n");
   while (true) {
     pthread_mutex_lock(&sentinelLock);
@@ -43,17 +40,18 @@ void *collectCommands(void *args) {
     if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
       LOG_ERROR("something went wrong processing commands");
     }
-    commandValue = parseCommands();
-    if (commandValue >= 0) {
+    parseCommands();
+    pthread_mutex_lock(&queueLock);
+    if (queueSize > 1) {
       // TODO: I'm unsure if I need commandLock or not
       //
       // pthread_mutex_lock(&commandLock);
       // TODO: I'm unsure if I need a commandLock or not
       //
       //     pthread_mutex_unlock(&commandLock);
-      pthread_mutex_lock(&queueLock);
-      queue[queueSize] = commandValue;
-      queueSize++;
+      LOG_DEBUG("I would start a thread for a commmand here");
+      LOG_DEBUG("command should've started execution, 'emptying' queue");
+      queueSize = 0;
       pthread_mutex_unlock(&queueLock);
     } else {
       LOG_ERROR("Detected an invalid commad");

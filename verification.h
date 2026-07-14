@@ -14,6 +14,8 @@
 #ifndef VERIFICATION_H
 #define VERIFICATION_H
 
+#include <pthread.h>
+
 #define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
 
 typedef enum {
@@ -26,9 +28,12 @@ typedef enum {
   CMD_HELP
 } command;
 
+extern pthread_mutex_t queueLock;
 extern char buffer[LOG_BUFFER_SIZE];
+extern int queue[];
+extern int queueSize;
 
-int parseCommands();              // Goes command by command verifying it.
+void parseCommands();             // Goes command by command verifying it.
 int isCommand(const char *token); // Determines what is & is
                                   // not a command.
 
