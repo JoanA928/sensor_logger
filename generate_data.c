@@ -19,7 +19,6 @@
 #include <time.h>
 
 packet data;
-dataLock = PTHREAD_MUTEX_INITIALIZER;
 
 void *genereteData(void *arg) {
   /**
@@ -27,24 +26,31 @@ void *genereteData(void *arg) {
    * envoriment where the sensors are constantly collecting data, this way our
    * firmware can access that data whenever it wasnts.
    */
+  if (arg) {
+    arg = NULL;
+  }
+  pthread_mutex_t dataLock = PTHREAD_MUTEX_INITIALIZER;
+  pthread_mutex_lock(&sentinelLock);
   if (sentinelValue != STOP_THREAD) {
+    pthread_mutex_unlock(&sentinelLock);
     srand((unsigned int)time(NULL));
     arg = NULL;
     struct timespec delay = {.tv_sec = 0, .tv_nsec = ONE_HUNDRED_MS_NS};
 
     while (1) {
-      pthread_mutex_lock(&sensorLock);
+      pthread_mutex_lock(&sentinelLock);
       if (sentinelValue == STOP_THREAD) {
-        pthread_mutex_unlock(&sensorLock);
+        pthread_mutex_unlock(&sentinelLock);
         break;
       }
-      pthread_mutex_unlock(&sensorLock);
+      pthread_mutex_unlock(&sentinelLock);
       pthread_mutex_lock(&dataLock);
       data.value = randomDouble(0.0, 1000.0);
       pthread_mutex_unlock(&dataLock);
       nanosleep(&delay, NULL);
     }
   }
+  pthread_mutex_unlock(&sentinelLock);
   LOG_INFO("Stopping thread, sentinelValue: %d", sentinelValue);
   return NULL;
 }

@@ -4,18 +4,14 @@
  * Student ID:: 924074746
  * Github-Name:: JoanA928
  * Project:: Firmware - Data Logger
- * File:: stop_command.h
+ * File:: app_state.h
  *
- * Description:: This file is responible for processing the stop command.
+ * Description:: // TODO: Fill me in.
  *
  **********************************************************************/
 
-#ifndef STOP_COMMAND_H
-#define STOP_COMMAND_H
+#ifndef APP_STATE
+#define APP_STATE
 
-extern sentinelValue;
-extern pthread_mutex_t sentinelLock;
-
-void *stopCommand(void *args);
-
-#endif // !STOP_COMMAND_H
+#define MAX_QUEUE_SIZE 100
+#endif // !APP_STATE

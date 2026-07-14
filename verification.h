@@ -16,7 +16,15 @@
 
 #define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
 
-typedef enum { start, stop, read, dump, stats, mem, help } command;
+typedef enum {
+  CMD_START,
+  CMD_STOP,
+  CMD_READ,
+  CMD_DUMP,
+  CMD_STATS,
+  CMD_MEM,
+  CMD_HELP
+} command;
 
 extern char buffer[LOG_BUFFER_SIZE];
 

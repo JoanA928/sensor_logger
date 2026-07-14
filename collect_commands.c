@@ -12,7 +12,7 @@
  **********************************************************************/
 
 #include "collect_commands.h"
-#include "genearte_data.h"
+#include "generate_data.h"
 #include "info_logger_macro.h"
 #include "verification.h"
 #include <pthread.h>
@@ -23,6 +23,10 @@ void *collectCommands(void *args) {
    * The user needs a way to interface with the firmware, in order to control
    * it.
    */
+  if (args) {
+    args = NULL;
+  }
+  int commandValue;
   LOG_INFO("hello I'm supposed to collect commands");
   printf("Enter 'help' to see a list of available commands\n");
   while (true) {
@@ -39,11 +43,20 @@ void *collectCommands(void *args) {
     if (fgets(buffer, LOG_BUFFER_SIZE, stdin) == NULL) {
       LOG_ERROR("something went wrong processing commands");
     }
-    if (parseCommands() == 0) {
-      pthread_mutex_lock(&commandLock);
-      isCommand = true;
-
-      pthread_mutex_unlock(&commandLock);
+    commandValue = parseCommands();
+    if (commandValue >= 0) {
+      // TODO: I'm unsure if I need commandLock or not
+      //
+      // pthread_mutex_lock(&commandLock);
+      // TODO: I'm unsure if I need a commandLock or not
+      //
+      //     pthread_mutex_unlock(&commandLock);
+      pthread_mutex_lock(&queueLock);
+      queue[queueSize] = commandValue;
+      queueSize++;
+      pthread_mutex_unlock(&queueLock);
+    } else {
+      LOG_ERROR("Detected an invalid commad");
     }
   }
   return NULL;

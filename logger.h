@@ -4,21 +4,19 @@
  * Student ID:: 924074746
  * Github-Name:: JoanA928
  * Project:: Firmware - Data Logger
- * File:: main.c
+ * File:: logger.h
  *
- * Description:: This file is responible for loggng sensor data to the console.
+ * Description:: TODO: Fill me in.
  *
  **********************************************************************/
 
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include "generate_data.h"
-#include <pthread>
+#include <pthread.h>
 
-extern packet data;
 extern pthread_mutex_t dataLock;
+extern packet data;
 
-void *logger(void *args);
-
-#endif // !Logger
+void *logger(void *args)
+#endif // !LOGGER_H

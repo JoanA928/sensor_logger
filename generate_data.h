@@ -29,8 +29,10 @@ typedef struct {
   time_t time; // Time when sensor value was read.
 } packet;
 
-pthread_mutex_t dataLock;
-extern pthread_mutex_t sensorLock;
+extern pthread_mutex_t dataLock;
+extern pthread_mutex_t
+    sensorLock; // TODO: I'm not sure that this variable is needed.
+extern pthread_mutex_t sentinelLock;
 extern int sentinelValue; // TODO: 'sentinelValue' is used in multiple files, it
                           // should be moved to a header file that is meant to
                           // be shared amongst any file that needs it.

@@ -12,14 +12,14 @@
 
 #include "generate_data.h"
 #include "info_logger_macro.h"
-#include <pthread>
+#include <pthread.h>
 
-void stopCommand(void *args) {
-  LOG_INFO("Entering 'stop' command thread");
+void *stopCommand(void *args) {
+  LOG_DEBUG("Entering 'stop' command thread");
   pthread_mutex_lock(&sentinelLock);
   sentinelValue = STOP_THREAD;
-  DEBUG_INFO("Sentinel value: %d", sentinelValue);
+  LOG_DEBUG("Sentinel value: %d", sentinelValue);
   pthread_mutex_unlock(&sentinelLock);
-  LOG_info("Exiting 'stop' command thread");
+  LOG_DEBUG("Exiting 'stop' command thread");
   return NULL;
 }

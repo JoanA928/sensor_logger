@@ -15,6 +15,7 @@
  **********************************************************************/
 
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
+#include "app_state.h"
 #include "collect_commands.h"
 #include "generate_data.h"
 #include "info_logger_macro.h"
@@ -27,13 +28,16 @@
 #include <unistd.h>
 
 // TODO: Figure out if this lives in .bss or .data.
-char buffer[LOG_BUFFER_SIZE];
+char buffer[LOG_BUFFER_SIZE]; // TODO: Consolidate all global variables into the
+                              // buffer
 pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER; // TODO: can be moved?
 pthread_mutex_t sentinelLock = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t queueLock = PTHREAD_MUTEX_INITIALIZER;
+// TODO: I'm unsure if commandLock is neccessary or not
+// pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
-bool isCommand;
-char *queue[];
+int queue[MAX_QUEUE_SIZE]; // TODO: Figure out if this lives in .bss or .data
+int queueSize;             // TODO: Figure out if this lives in .bss or .data
 
 int main(int argc, char *argv[]) {
   LOG_INFO("argc: %d / argv: %s", argc, argv[0]);
@@ -41,30 +45,75 @@ int main(int argc, char *argv[]) {
   printf("Sensor Data Logger\n"); // TODO: Format program name to have a nice
                                   // presentation
   /**
-   * In order to simulate sensors values we're going to generate them in a
-   * seperate thread so that firmware has a source for where for logging.
+   * The program needs a way to halt execution when told to but when it's not
+   * told to halt it's to provide an enviroment in which the user can enter
+   * commands and the program can execute those commands.
    */
   pthread_t collectCommandsThread;
-  pthread_t sensorThread;
-  pthread_create(&collect_commands, NULL, collecCommands, NULL);
-  pthread_create(&sensorThread, NULL, genereteData, NULL);
+  pthread_create(&collectCommandsThread, NULL, collectCommands, NULL);
+
   pthread_mutex_lock(&sentinelLock);
-  if (sentinelValue == STOP_THREAD) {
-    pthread_mutex_t_lock(&sentinelLock);
-    pthread_join(sensorThread, NULL);
-    pthread_join(collectCommandsThread, NULL);
-    LOG_INFO("good bye");
-    return EXIT_SUCCESS;
-    pthread_mutex_t_lock(&collect_commands);
-  } else if (!queue) {
-    LOG_INFO("Here I would start run commands");
-    pthread_mutex_t_unlock(&collect_commands);
-    pthread_t collectCommandsThread;
-    pthread_create(&collect_commands, NULL, collecCommands, NULL);
-    pthread_create(&sensorThread, NULL, genereteData, NULL);
-    if (sentinelValue == STOP_THREAD) {
-      pthread_join(sensorThread, NULL);
+  while (sentinelValue != STOP_THREAD) {
+    pthread_mutex_unlock(&sentinelLock);
+    pthread_mutex_lock(&queueLock);
+    if (queue[0]) {
+      for (int index = 0; index < queueSize; index++) {
+        switch (queue[index]) {
+        case 1: // TODO: Replace '1' with command enum
+          LOG_DEBUG("Start command '1' thread");
+          break;
+        case 2: // TODO: Replace '2' with command enum
+          LOG_DEBUG("Start command '2' thread");
+          break;
+        case 3: // TODO: Replace '3' with command enum
+          LOG_DEBUG("Start command '3' thread");
+          break;
+        case 4:
+          LOG_DEBUG("Start command '4' thread");
+          break;
+        case 5:
+          LOG_DEBUG("Start command '5' thread");
+          break;
+        case 6:
+          LOG_DEBUG("Start command '6' thread");
+          break;
+        case 7:
+          LOG_DEBUG("Start command '7' thread");
+          break;
+        default:
+          LOG_ERROR("'queue is non NULL, but queue[%d] is not a command",
+                    index);
+          break;
+        }
+      }
+    }
+    pthread_mutex_unlock(&queueLock);
+  }
+  /*  pthread_t sensorThread; // TODO: Sensor thread shouldn't start till valid
+                            // command is found
+    pthread_create(
+        &sensorThread, NULL, genereteData,
+        NULL); // TODO: Sensor thread shouldn't start till valid command is
+    found pthread_mutex_lock(&sentinelLock); if (sentinelValue == STOP_THREAD) {
+      pthread_mutex_t_unlock(&sentinelLock);
+      pthread_join(sensorThread, NULL); // TODO: I should have an array to keep
+                                        // track of which threads I need to join
+      pthread_join(collectCommandsThread, NULL);
       LOG_INFO("good bye");
       return EXIT_SUCCESS;
+      //    pthread_mutex_t_lock(&collectCommands);
+    } else if (!queue) {
+      pthread_mutex_t_unlock(&sentinelLock);
+      LOG_INFO("Here I would start run commands");
+      //   pthread_mutex_t_unlock(&collectCommands);
+      pthread_t collectCommandsThread;
+      pthread_create(&collectCommands, NULL, collecCommands, NULL);
+      pthread_create(&sensorThread, NULL, genereteData, NULL);
+      if (sentinelValue == STOP_THREAD) {
+        pthread_join(sensorThread, NULL);
+        LOG_INFO("good bye");
+        return EXIT_SUCCESS;
+      }
     }
-  }
+  */
+}

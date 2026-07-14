@@ -7,13 +7,13 @@ CFLAGS = -Wall -Wextra -Wpedantic -pthread -I$(LIBRARY)
 TARGET = main
 
 # Source files
-SRC = main.c verification.c generate_data.c
+SRC = main.c verification.c generate_data.c collect_commands.c logger.c stop_command.c
 
 # Personal library
 LIBRARY = library/
 
 # Header files
-HEAD = verification.h generate_data.h $(LIBRARY)/info_logger_macro.h
+HEAD = verification.h generate_data.h $(LIBRARY)/info_logger_macro.h $(LIBRARY)/app_state.h collect_commands.h logger.h
 
 # Default rule
 all: $(TARGET)

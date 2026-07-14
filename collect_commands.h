@@ -13,13 +13,15 @@
 #ifndef COLLECT_COMMANDS_H
 #define COLLECT_COMMANDS_H
 
-#include <pthread>
+#include <pthread.h>
 #include <stdbool.h>
 
 void *collectCommands(void *args);
 
-extern char *queue;
-extern pthread_mutex_t commandLock;
+extern int queue[];
+extern int queueSize;
+// TODO: I'm unsure if commandLock is neccessary or not
+// extern pthread_mutex_t commandLock;
 extern pthread_mutex_t sentinelLock;
-extern bool isCommand;
+extern pthread_mutex_t queueLock;
 #endif // !COLLECT_COMMANDS_H

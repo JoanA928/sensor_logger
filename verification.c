@@ -43,28 +43,25 @@ int parseCommands() {
 int isCommand(const char *token) {
 
   if (strcmp(token, "start") == 0) {
-    DEBUG_INFO("'start' command detected");
-    return start;
+    LOG_INFO("'start' command detected");
+    return CMD_START;
   } else if (strcmp(token, "stop") == 0) {
-    DEBUG_INFO("'stop' command detected");
-    return stop;
+    LOG_INFO("'stop' command detected");
+    return CMD_STOP;
   } else if (strcmp(token, "read") == 0) {
-    DEBUG_INFO("'read' command detected");
-    return read;
+    LOG_INFO("'read' command detected");
+    return CMD_READ;
   } else if (strcmp(token, "dump") == 0) {
-    DEBUG_INFO("'dump' command detected");
-    return dump;
-  } else if (strcmp(token, "stats") == 0) {
-    DEBUG_INFO("'stats' command detected");
-    return stats;
+    LOG_INFO("'dump' command detected");
+    return CMD_DUMP;
   } else if (strcmp(token, "mem") == 0) {
-    DEBUG_INFO("'mem' command detected");
-    return mem;
+    LOG_INFO("'mem' command detected");
+    return CMD_MEM;
   } else if (strcmp(token, "help") == 0) {
-    DEBUG_INFO("'help' command detected");
-    return help;
+    LOG_INFO("'help' command detected");
+    return CMD_HELP;
   } else {
-    DEBUG_INFO("Invalid command detected");
+    LOG_INFO("Invalid command detected");
     return -1;
   }
 }

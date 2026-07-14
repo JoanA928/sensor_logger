@@ -10,11 +10,14 @@
  *
  **********************************************************************/
 
-#include "logger.h"
+#include "generate_data.h"
 #include "info_logger_macro.h"
-
-void logger(void *args) {
-
+#include <pthread.h>
+#include <unistd.h>
+void *logger(void *args) {
+  if (args) {
+    args = NULL;
+  }
   time_t start = time(NULL);
   while (time(NULL) - start < 10) {
     pthread_mutex_lock(&dataLock);
