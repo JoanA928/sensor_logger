@@ -36,7 +36,7 @@ extern pthread_mutex_t sentinelLock;
 extern int sentinelValue; // TODO: 'sentinelValue' is used in multiple files, it
                           // should be moved to a header file that is meant to
                           // be shared amongst any file that needs it.
-extern packet data;
+// extern packet data;
 
 void *genereteData(void *arg);
 double randomDouble(double min, double max);

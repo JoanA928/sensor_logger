@@ -29,7 +29,6 @@ void *genereteData(void *arg) {
   if (arg) {
     arg = NULL;
   }
-  pthread_mutex_t dataLock = PTHREAD_MUTEX_INITIALIZER;
   pthread_mutex_lock(&sentinelLock);
   if (sentinelValue != STOP_THREAD) {
     pthread_mutex_unlock(&sentinelLock);

@@ -33,6 +33,8 @@ char buffer[LOG_BUFFER_SIZE]; // TODO: Consolidate all global variables into the
 pthread_mutex_t sensorLock = PTHREAD_MUTEX_INITIALIZER; // TODO: can be moved?
 pthread_mutex_t sentinelLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t queueLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t dataLock = PTHREAD_MUTEX_INITIALIZER;
+
 // TODO: I'm unsure if commandLock is neccessary or not
 // pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;

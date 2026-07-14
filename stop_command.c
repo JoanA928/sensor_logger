@@ -15,6 +15,9 @@
 #include <pthread.h>
 
 void *stopCommand(void *args) {
+  if (args) {
+    args = NULL;
+  }
   LOG_DEBUG("Entering 'stop' command thread");
   pthread_mutex_lock(&sentinelLock);
   sentinelValue = STOP_THREAD;

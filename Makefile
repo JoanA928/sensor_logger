@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Wpedantic -pthread -I$(LIBRARY)
+CFLAGS = -Wall -Wextra -Wpedantic -std=c23 -D_DEFAULT_SOURCE -pthread -I$(LIBRARY)
 # Output executable name
 TARGET = main
 

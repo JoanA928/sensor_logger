@@ -17,11 +17,13 @@
 #include <stdio.h>
 
 #define LOG_DEBUG(fmt, ...)                                                    \
-  fprintf(stderr, "[DEBUG] %s:%d: " fmt "\n", __FILE__, __LINE__,              \
-          ##__VA_ARGS__) // fmt -> first macro parameter
-#define LOG_INFO(fmt, ...) fprintf(stderr, "[INFO] " fmt "\n", ##__VA_ARGS__)
+  fprintf(stderr, "[DEBUG] %s:%d: " fmt "\n", __FILE__,                        \
+          __LINE__ __VA_OPT__(, ) __VA_ARGS__) // fmt -> first macro parameter
+#define LOG_INFO(fmt, ...)                                                     \
+  fprintf(stderr, "[INFO] " fmt "\n" __VA_OPT__(, ) __VA_ARGS__)
 
 #define LOG_ERROR(fmt, ...)                                                    \
-  fprintf(stderr, "[ERROR] %s:%d: " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+  fprintf(stderr, "[ERROR] %s:%d: " fmt "\n", __FILE__,                        \
+          __LINE__ __VA_OPT__(, ) __VA_ARGS__)
 
 #endif // !INFO_LOGGER_MACRO_H
