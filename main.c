@@ -23,8 +23,6 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include <unistd.h>
 
 // TODO: Figure out if this lives in .bss or .data.
