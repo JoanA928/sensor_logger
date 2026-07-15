@@ -1,0 +1,116 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "main.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/main.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "verification.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/verification.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "generate_data.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/generate_data.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "collect_commands.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/collect_commands.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "logger.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/logger.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c23",
+      "-D_DEFAULT_SOURCE",
+      "-pthread",
+      "-Ilibrary",
+      "-o",
+      "main",
+      "stop_command.c"
+    ],
+    "directory": "/home/joan/src/sensor_logger",
+    "file": "/home/joan/src/sensor_logger/stop_command.c",
+    "output": "/home/joan/src/sensor_logger/main"
+  }
+]
