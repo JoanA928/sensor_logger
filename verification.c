@@ -15,13 +15,12 @@
 #include "app_state.h"
 #include "info_logger_macro.h"
 #include <pthread.h>
-#include <stdio.h>
 #include <string.h>
 
 void parseCommands() {
 
   const char *delimiter = " \n";
-  int commandValue;
+  int commandValue = 0;
   /*
    *  Breaking up the verification process into pieces makes implmentation
    *  easier.
