@@ -56,30 +56,29 @@ int main(int argc, char *argv[]) {
   while (sentinelValue != STOP_THREAD) {
     pthread_mutex_unlock(&sentinelLock);
     pthread_mutex_lock(&queueLock);
-    if (queue[0]) {
+    if (queue[queueSize] > CMD_NONE && queue[queueSize] <= CMD_HELP) {
       for (int index = 0; index < queueSize; index++) {
         switch (queue[index]) {
-        case 1: // TODO: Replace '1' with command enum
-          LOG_DEBUG("Start command '1' thread");
-
+        case CMD_START:
+          LOG_DEBUG("Start command '%d' thread", CMD_START);
           break;
-        case 2: // TODO: Replace '2' with command enum
-          LOG_DEBUG("Start command '2' thread");
+        case CMD_STOP:
+          LOG_DEBUG("Start command '%d' thread", CMD_STOP);
           break;
-        case 3: // TODO: Replace '3' with command enum
-          LOG_DEBUG("Start command '3' thread");
+        case CMD_READ:
+          LOG_DEBUG("Start command '%d' thread", CMD_READ);
           break;
-        case 4:
-          LOG_DEBUG("Start command '4' thread");
+        case CMD_DUMP:
+          LOG_DEBUG("Start command '%d' thread", CMD_DUMP);
           break;
-        case 5:
-          LOG_DEBUG("Start command '5' thread");
+        case CMD_STATS:
+          LOG_DEBUG("Start command '%d' thread", CMD_STATS);
           break;
-        case 6:
-          LOG_DEBUG("Start command '6' thread");
+        case CMD_MEM:
+          LOG_DEBUG("Start command '%d' thread", CMD_MEM);
           break;
-        case 7:
-          LOG_DEBUG("Start command '7' thread");
+        case CMD_HELP:
+          LOG_DEBUG("Start command '%d' thread", CMD_HELP);
           break;
         default:
           LOG_ERROR("'queue is non NULL, but queue[%d] is not a command",
@@ -89,6 +88,8 @@ int main(int argc, char *argv[]) {
       }
     }
     pthread_mutex_unlock(&queueLock);
+    pthread_join(collectCommandsThread, NULL);
+    return 0;
   }
   /*  pthread_t sensorThread; // TODO: Sensor thread shouldn't start till valid
                             // command is found
