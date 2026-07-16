@@ -19,6 +19,7 @@
 #define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
 
 typedef enum {
+  CMD_INVALID = -1,
   CMD_NONE,
   CMD_START,
   CMD_STOP,
