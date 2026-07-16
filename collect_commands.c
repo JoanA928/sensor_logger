@@ -42,7 +42,7 @@ void *collectCommands(void *args) {
     }
     parseCommands();
     pthread_mutex_lock(&queueLock);
-    if (queueSize > 1) {
+    if (queueSize >= 1) {
       // TODO: I'm unsure if I need commandLock or not
       //
       // pthread_mutex_lock(&commandLock);

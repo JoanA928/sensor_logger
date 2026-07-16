@@ -25,7 +25,7 @@ void parseCommands() {
    *  Breaking up the verification process into pieces makes implmentation
    *  easier.
    */
-  char *token;
+  char *token = NULL;
   token = strtok(buffer, delimiter);
   if (!token) {
     LOG_ERROR("parsing command");
