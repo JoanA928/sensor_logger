@@ -36,6 +36,7 @@ pthread_mutex_t dataLock = PTHREAD_MUTEX_INITIALIZER;
 // TODO: I'm unsure if commandLock is neccessary or not
 // pthread_mutex_t commandLock = PTHREAD_MUTEX_INITIALIZER;
 int sentinelValue;
+bool isNewCommand;
 int queue[MAX_QUEUE_SIZE]; // TODO: Figure out if this lives in .bss or .data
 int queueSize;             // TODO: Figure out if this lives in .bss or .data
 
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]) {
   while (sentinelValue != STOP_THREAD) {
     pthread_mutex_unlock(&sentinelLock);
     pthread_mutex_lock(&queueLock);
-    if (queue[queueSize] > CMD_NONE && queue[queueSize] <= CMD_HELP) {
+    if (isNewCommand) {
       for (int index = 0; index < queueSize; index++) {
         switch (queue[index]) {
         case CMD_START:

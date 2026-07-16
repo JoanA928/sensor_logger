@@ -20,6 +20,7 @@ void *collectCommands(void *args);
 
 extern int queue[];
 extern int queueSize;
+extern bool isNewCommand;
 // TODO: I'm unsure if commandLock is neccessary or not
 // extern pthread_mutex_t commandLock;
 extern pthread_mutex_t sentinelLock;

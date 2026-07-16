@@ -51,7 +51,7 @@ void *collectCommands(void *args) {
       //     pthread_mutex_unlock(&commandLock);
       LOG_DEBUG("I would start a thread for a commmand here");
       LOG_DEBUG("command should've started execution, 'emptying' queue");
-      queueSize = 0;
+      isNewCommand = true;
       pthread_mutex_unlock(&queueLock);
     } else {
       LOG_ERROR("Detected an invalid commad");
