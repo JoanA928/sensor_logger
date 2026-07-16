@@ -41,7 +41,7 @@ void parseCommands() {
     }
 
     pthread_mutex_lock(&queueLock);
-    if (queueSize <= MAX_QUEUE_SIZE) {
+    if (queueSize <= MAX_QUEUE_SIZE && commandValue > CMD_NONE) {
       queue[queueSize] = commandValue;
       queueSize++;
       pthread_mutex_unlock(&queueLock);
