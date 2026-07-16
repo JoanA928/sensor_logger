@@ -20,7 +20,7 @@
 void parseCommands() {
 
   const char *delimiter = " \n";
-  int commandValue = 0;
+  int commandValue = CMD_NONE;
   /*
    *  Breaking up the verification process into pieces makes implmentation
    *  easier.
