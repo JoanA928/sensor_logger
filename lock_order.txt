@@ -1,0 +1,3 @@
+Lock order:
+1. queueLock
+2. sentinelLock

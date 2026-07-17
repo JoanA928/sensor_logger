@@ -14,6 +14,7 @@
 #include "generate_data.h"
 #include "info_logger_macro.h"
 #include "verification.h"
+#include <pthread.h>
 #include <string.h>
 
 void checkQueue() {
@@ -30,6 +31,9 @@ void checkQueue() {
           break;
         case CMD_STOP:
           LOG_DEBUG("Start command '%d' thread", CMD_STOP);
+          pthread_mutex_lock(&sentinelLock);
+          sentinelValue = STOP_THREAD;
+          pthread_mutex_unlock(&sentinelLock);
           isNewCommand = false;
           break;
         case CMD_READ:
