@@ -13,8 +13,10 @@
 
 #include "verification.h"
 #include "app_state.h"
+#include "check_queue.h"
 #include "info_logger_macro.h"
 #include <pthread.h>
+#include <stdbool.h>
 #include <string.h>
 
 void parseCommands() {
@@ -44,6 +46,7 @@ void parseCommands() {
     if (queueSize <= MAX_QUEUE_SIZE && commandValue > CMD_NONE) {
       queue[queueSize] = commandValue;
       queueSize++;
+      isNewCommand = true;
       pthread_mutex_unlock(&queueLock);
       token = strtok(NULL, delimiter);
     }

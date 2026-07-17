@@ -12,6 +12,7 @@
  **********************************************************************/
 
 #include "collect_commands.h"
+#include "check_queue.h"
 #include "generate_data.h"
 #include "info_logger_macro.h"
 #include "verification.h"
@@ -42,18 +43,10 @@ void *collectCommands(void *args) {
     }
     parseCommands();
     pthread_mutex_lock(&queueLock);
-    if (queueSize >= 1) {
-      // TODO: I'm unsure if I need commandLock or not
-      //
-      // pthread_mutex_lock(&commandLock);
-      // TODO: I'm unsure if I need a commandLock or not
-      //
-      //     pthread_mutex_unlock(&commandLock);
-      isNewCommand = true;
-      pthread_mutex_unlock(&queueLock);
-    } else {
+    if (!isNewCommand) {
       LOG_ERROR("Detected an invalid commad");
     }
+    pthread_mutex_unlock(&queueLock);
   }
   return NULL;
 }

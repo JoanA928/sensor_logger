@@ -15,6 +15,7 @@
 #define VERIFICATION_H
 
 #include <pthread.h>
+#include <stdbool.h>
 
 #define LOG_BUFFER_SIZE 1024 // TODO: Figure out why this number comes up a lot.
 
@@ -34,6 +35,7 @@ extern pthread_mutex_t queueLock;
 extern char buffer[LOG_BUFFER_SIZE];
 extern int queue[];
 extern int queueSize;
+extern bool isNewCommand;
 
 void parseCommands();             // Goes command by command verifying it.
 int isCommand(const char *token); // Determines what is & is
