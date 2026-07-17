@@ -62,24 +62,31 @@ int main(int argc, char *argv[]) {
         switch (queue[index]) {
         case CMD_START:
           LOG_DEBUG("Start command '%d' thread", CMD_START);
+          isNewCommand = false;
           break;
         case CMD_STOP:
           LOG_DEBUG("Start command '%d' thread", CMD_STOP);
+          isNewCommand = false;
           break;
         case CMD_READ:
           LOG_DEBUG("Start command '%d' thread", CMD_READ);
+          isNewCommand = false;
           break;
         case CMD_DUMP:
           LOG_DEBUG("Start command '%d' thread", CMD_DUMP);
+          isNewCommand = false;
           break;
         case CMD_STATS:
           LOG_DEBUG("Start command '%d' thread", CMD_STATS);
+          isNewCommand = false;
           break;
         case CMD_MEM:
           LOG_DEBUG("Start command '%d' thread", CMD_MEM);
+          isNewCommand = false;
           break;
         case CMD_HELP:
           LOG_DEBUG("Start command '%d' thread", CMD_HELP);
+          isNewCommand = false;
           break;
         default:
           LOG_ERROR("'queue is non NULL, but queue[%d] is not a command",
