@@ -14,6 +14,7 @@
 #include "generate_data.h"
 #include "info_logger_macro.h"
 #include "verification.h"
+#include <string.h>
 
 void checkQueue() {
   pthread_mutex_lock(&sentinelLock);
@@ -57,6 +58,7 @@ void checkQueue() {
           break;
         }
       }
+      memset(queue, CMD_NONE, sizeof(queue));
     }
     pthread_mutex_unlock(&queueLock);
   }

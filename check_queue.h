@@ -13,13 +13,14 @@
 #ifndef CHECK_QUEUE_H
 #define CHECK_QUEUE_H
 
+#include "app_state.h"
 #include <pthread.h>
 #include <stdbool.h>
 
 extern pthread_mutex_t sentinelLock;
 extern int sentinelValue;
 extern bool isNewCommand;
-extern int queue[];
+extern int queue[MAX_QUEUE_SIZE];
 extern int queueSize;
 
 void checkQueue();
