@@ -49,8 +49,6 @@ void *collectCommands(void *args) {
       // TODO: I'm unsure if I need a commandLock or not
       //
       //     pthread_mutex_unlock(&commandLock);
-      LOG_DEBUG("I would start a thread for a commmand here");
-      LOG_DEBUG("command should've started execution, 'emptying' queue");
       isNewCommand = true;
       pthread_mutex_unlock(&queueLock);
     } else {
