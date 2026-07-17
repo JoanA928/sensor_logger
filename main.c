@@ -16,6 +16,7 @@
 
 // TODO: Find out if getting rid of 'stdbool.h' shrinks the binary size
 #include "app_state.h"
+#include "check_queue.h"
 #include "collect_commands.h"
 #include "generate_data.h"
 #include "info_logger_macro.h"
@@ -53,52 +54,10 @@ int main(int argc, char *argv[]) {
   pthread_t collectCommandsThread;
   pthread_create(&collectCommandsThread, NULL, collectCommands, NULL);
 
-  pthread_mutex_lock(&sentinelLock);
-  while (sentinelValue != STOP_THREAD) {
-    pthread_mutex_unlock(&sentinelLock);
-    pthread_mutex_lock(&queueLock);
-    if (isNewCommand) {
-      for (int index = 0; index < queueSize; index++) {
-        switch (queue[index]) {
-        case CMD_START:
-          LOG_DEBUG("Start command '%d' thread", CMD_START);
-          isNewCommand = false;
-          break;
-        case CMD_STOP:
-          LOG_DEBUG("Start command '%d' thread", CMD_STOP);
-          isNewCommand = false;
-          break;
-        case CMD_READ:
-          LOG_DEBUG("Start command '%d' thread", CMD_READ);
-          isNewCommand = false;
-          break;
-        case CMD_DUMP:
-          LOG_DEBUG("Start command '%d' thread", CMD_DUMP);
-          isNewCommand = false;
-          break;
-        case CMD_STATS:
-          LOG_DEBUG("Start command '%d' thread", CMD_STATS);
-          isNewCommand = false;
-          break;
-        case CMD_MEM:
-          LOG_DEBUG("Start command '%d' thread", CMD_MEM);
-          isNewCommand = false;
-          break;
-        case CMD_HELP:
-          LOG_DEBUG("Start command '%d' thread", CMD_HELP);
-          isNewCommand = false;
-          break;
-        default:
-          LOG_ERROR("'queue is non NULL, but queue[%d] is not a command",
-                    index);
-          break;
-        }
-      }
-    }
-    pthread_mutex_unlock(&queueLock);
-    pthread_join(collectCommandsThread, NULL);
-    return 0;
-  }
+  checkQueue();
+  pthread_join(collectCommandsThread, NULL);
+  return 0;
+
   /*  pthread_t sensorThread; // TODO: Sensor thread shouldn't start till valid
                             // command is found
     pthread_create(
